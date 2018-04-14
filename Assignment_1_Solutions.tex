@@ -1,0 +1,33 @@
+\documentclass[a4paper]{article}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bussproofs}
+
+\usepackage[
+top=0.3in,
+nohead]{geometry}
+
+\title{PHIL3110 - Assignment 1}
+\author{Maxwell Bo}
+
+\begin{document} 
+
+\maketitle
+
+\section*{Part A}
+
+\subsection*{Problem 1}
+
+\begin{enumerate}
+    \item 
+    \begin{prooftree}
+        \AxiomC{$Pa \vee Qa^{(1)}$}
+        \AxiomC{$(Pa \vee Qa) \to \bot$}
+        \BinaryInfC{$\bot$}
+        \RightLabel{\scriptsize(1) $\neg I$}
+        \UnaryInfC{$\neg(Pa \vee Qa)$}
+    \end{prooftree}
+\end{enumerate}
+
+\end{document}
