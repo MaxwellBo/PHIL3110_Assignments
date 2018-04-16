@@ -76,6 +76,20 @@ nohead]{geometry}
         % \RightLabel{\scriptsize(1) $\neg I$}
         % \UnaryInfC{$\neg(Pa \vee Qa)$}
     \end{prooftree}
+
+    \item 
+    \begin{prooftree}
+        \AxiomC{$\neg (\forall x Px \to \exists x Rx)$}
+        \AxiomC{$\forall x Px^{(1)}$}
+        \AxiomC{$\exists x Rx^{(2)}$}
+        \BinaryInfC{$\forall x Px \wedge \exists x Rx$}
+        \UnaryInfC{$\exists x Rx$}
+        \RightLabel{\scriptsize(1) $(\to I)$}
+        \UnaryInfC{$\forall x Px \to \exists x Rx$}
+        \BinaryInfC{$\bot$}
+        \RightLabel{\scriptsize(2) $(\neg I)$}
+        \UnaryInfC{$\neg \exists x Rx$}
+    \end{prooftree}
 \end{enumerate}
 
 \subsection*{Problem 2}
@@ -177,7 +191,7 @@ nohead]{geometry}
 
         Thus, $n + 1 \in A$. Then by induction, we see that every $n \in A$.
     
-    \subsection{Problem}
+    \subsection*{Problem 4}
 
 \end{enumerate}
 
