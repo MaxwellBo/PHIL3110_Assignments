@@ -210,7 +210,7 @@ nohead]{geometry}
 
     $(\exists E)$ Suppose:
         \begin{itemize}
-            \item $d_{\exists}$ is a derivation of $\Gamma \vdash \exists x \varphi (x)$
+            \item $d_{\exists x \varphi (x)}$ is a derivation of $\Gamma \vdash \exists x \varphi (x)$
             \item $d_{\psi}$ is a derivation of $\Delta, \varphi(a) \vdash \psi$, where $a$ does not occur in $\Delta$ or $\exists x \varphi (x)$
         \end{itemize}
 
@@ -218,20 +218,19 @@ nohead]{geometry}
 
         We must show that $\Gamma, \Delta, \varphi (a) \models \psi$.
 
-        Since $d_{\exists} \in Stage_{Der}(n)$, we have $\Gamma\models \exists x \varphi (x)$.
+        Since $d_{\exists x \psi (x)} \in Stage_{Der}(n)$, we have $\Gamma\models \exists x \varphi (x)$.
 
         Since $d_{\psi} \in Stage_{Der}(n)$, we have $\Delta, \varphi (a) \models \psi$.
 
 
-    Let $\MODEL$ be a model which $\MODEL \models \gamma$ for all $\gamma \in \Delta \cup \varphi (a)$.
-        Then $\MODEL \models \psi$.
+    Let $\MODEL$ be a model which $\MODEL \models \gamma$ for all $\gamma \in \Gamma \cup \Delta$, with some $a^{\MODEL} = m$.
 
+    $\MODEL \models \psi$ for some arbitrary interpretation of $a$, as $a$ does not occur in $\Delta$, $\psi$, or $\varphi (x)$.
 
-        Suppose that $m = a^{\MODEL}$. Now consider any model $\MODEL'$ which is exactly like $\MODEL$ except that $a^{\MODEL'} = m' \neq a^{\MODEL} = m$; i.e., we let $a^{\MODEL'}$ be some arbitrary other $m'$ from the domain $M$. Since $\Delta \cup \varphi (a)$ has a sentence with the constant symbol $a$ in it, $\MODEL'$ only models $\psi$ if it models  $\varphi (a)$.
+    Thus, some $\MODEL'$ with a differing interpretation of $a$ to an object in $M$ than $\MODEL$, $\MODEL' \models \psi$ iff $\MODEL' \models \exists x \varphi (x)$.
 
-
-        But the fact that all models $\MODEL'$ whose only difference from $\MODEL$ is their interpretation of the symbol $a$ are such that $\MODEL' \models \psi$ just means that:
-
+    Therefore
+    
         $\exists m \in M\ \MODEL' \models \exists x \varphi (x), \varphi (m)\Leftrightarrow \MODEL \models \psi$.
 
     \item Suppose $\psi := \chi \vee \delta \in \Delta$. 
@@ -244,8 +243,8 @@ nohead]{geometry}
 
 
     \begin{align*}
-        \chi \vee \delta \in \Delta & \Leftrightarrow  \chi \in \Delta\ || \ \delta \in \Delta\\
-        & \Leftrightarrow \MODEL^{\Delta} \models \chi\ || \ \MODEL^{\Delta} \models \delta\\
+        \chi \vee \delta \in \Delta & \Leftrightarrow  \chi \in \Delta\ \text{or} \ \delta \in \Delta\\
+        & \Leftrightarrow \MODEL^{\Delta} \models \chi\ \text{or} \ \MODEL^{\Delta} \models \delta\\
         & \Leftrightarrow \MODEL^{\Delta} \models \chi \vee \delta
     \end{align*}
 
