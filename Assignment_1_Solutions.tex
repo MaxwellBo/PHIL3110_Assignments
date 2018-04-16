@@ -7,6 +7,7 @@
 \newcommand{\MODEL}{\mathcal{M}}
 \newcommand{\LANGUAGE}{\mathcal{L}}
 \newcommand{\TUPLE}[1]{\langle {#1} \rangle}
+\newcommand{\SET}[1]{\{ {#1} \}}
 
 \usepackage[
 top=0.3in,
@@ -96,5 +97,52 @@ nohead]{geometry}
     \end{align*}
 
 \end{enumerate}
+
+\section*{Part B}
+
+\subsection*{Problem 3}
+
+\begin{enumerate}
+    \item \begin{enumerate}
+        \item $BHMB$ is not a good sandwich
+        \item $(((B)JB)HB)$ is a good sandwich
+        \item $BHBMBJM$ is not a good sandwich
+    
+    \end{enumerate}
+
+    \item \uppercase{Definition}\\
+    A sandwich is good iff there is some stage $n$ such that $sandwich \in Stage(n)$ where:
+
+    \begin{itemize}
+        \item $Stage(0) = \{ B \}$
+        \item $Stage(n + 1)$ is the set of $\varphi$ such that either:
+        \begin{enumerate}
+            \item $\varphi \in Stage(n)$
+            \item $\varphi$ is of the form $\psi MB$, $\psi HB$, or $\psi JB$, where $\psi \in Stage(n)$
+        \end{enumerate}
+    \end{itemize}
+
+    \item Make $A$ the set of all $n$ such that for each $\psi \in Stage(n)$, $\psi$ does not contain any two instances of the same ingredient adjacently.
+
+    \uppercase{(BASE)} $0 \in A$. As $Stage(0) = \SET{B}$, all $\varphi \in Stage(0)$ do not contain any two instances of the same ingredient adjacently. We can also see that all $\varphi \in Stage(0)$ are terminated by $B$\\\\
+    \uppercase{(INDUCTION STEP)} Suppose $n \in A$.  Since $n \in A$, and every $\varphi \in Stage(n)$ is of the form $B$, $\psi MB$, $\psi HB$, or $\psi JB$, for $\psi \in Stage(m)$ for some $m < n$, all $\varphi$ are terminated by $B$.
+
+        For each $\varphi \in Stage(n + 1) \setminus Stage(n)$, recalling the definition for $Stage(n + 1)$, $\varphi$ is of the form $\psi MB$, $\psi HB$, or $\psi JB$, for some $\psi \in Stage(n)$.
+
+        Given \begin{itemize}
+            \item all $\varphi \in Stage(n)$ are terminated by $B$
+            \item all $\varphi \in \SET{MB, HB, JB}$ don't begin with $B$, and are not themselves adjacent ingredients
+            \item since $n \in A$, every $\varphi \in Stage(n)$ does not contain any two instances of the same ingredient adjacently
+        \end{itemize}
+        
+        all $\varphi \in Stage(n + 1) \setminus Stage(n)$ do not contain two instances of the same ingredient adjacently. 
+
+        Thus, $n + 1 \in A$. Then by induction, we see that every $n \in A$.
+
+% Thus by IND, we see that every n is in A
+
+\end{enumerate}
+
+
 
 \end{document}
