@@ -4,6 +4,8 @@
 \usepackage{amssymb}
 \usepackage{bussproofs}
 
+\newtheorem{lemma}{Lemma}
+
 \newcommand{\MODEL}{\mathcal{M}}
 \newcommand{\LANGUAGE}{\mathcal{L}}
 \newcommand{\TUPLE}[1]{\langle {#1} \rangle}
@@ -124,15 +126,26 @@ nohead]{geometry}
 
     \item Make $A$ the set of all $n$ such that for each $\psi \in Stage(n)$, $\psi$ does not contain any two instances of the same ingredient adjacently.
 
-    \uppercase{(BASE)} $0 \in A$. As $Stage(0) = \SET{B}$, all $\varphi \in Stage(0)$ do not contain any two instances of the same ingredient adjacently. We can also see that all $\varphi \in Stage(0)$ are terminated by $B$\\\\
-    \uppercase{(INDUCTION STEP)} Suppose $n \in A$.  Since $n \in A$, and every $\varphi \in Stage(n)$ is of the form $B$, $\psi MB$, $\psi HB$, or $\psi JB$, for $\psi \in Stage(m)$ for some $m < n$, all $\varphi$ are terminated by $B$.
+    \subsubsection*{Base} $0 \in A$. As $Stage(0) = \SET{B}$, all $\varphi \in Stage(0)$ do not contain any two instances of the same ingredient adjacently. We can also see that all $\varphi \in Stage(0)$ are terminated by $B$
 
-        For each $\varphi \in Stage(n + 1) \setminus Stage(n)$, recalling the definition for $Stage(n + 1)$, $\varphi$ is of the form $\psi MB$, $\psi HB$, or $\psi JB$, for some $\psi \in Stage(n)$.
+
+    \subsubsection*{Induction Step}
+    Suppose $n \in A$.
+    
+    \begin{lemma}
+    Since $n \in A$, and every $\varphi \in Stage(n)$ is of the form $B$, $\psi MB$, $\psi HB$, or $\psi JB$, for $\psi \in Stage(m)$ for some $m < n$, all $\varphi$ are terminated by $B$.
+    \end{lemma}
+
+    \begin{lemma}
+    Since $n \in A$, every $\varphi \in Stage(n)$ does not contain any two instances of the same ingredient adjacently.
+    \end{lemma}
+
+        For each $\varphi \in Stage(n + 1) \setminus Stage(n)$, recalling the definition for $Stage(n + 1)$, $\varphi$ is of the form $\psi MB$, $\psi HB$, or $\psi JB$, for some $\psi \in Stage(n)$
 
         Given \begin{itemize}
             \item all $\varphi \in Stage(n)$ are terminated by $B$
             \item all $\varphi \in \SET{MB, HB, JB}$ don't begin with $B$, and are not themselves adjacent ingredients
-            \item since $n \in A$, every $\varphi \in Stage(n)$ does not contain any two instances of the same ingredient adjacently
+            \item Lemma 1 and 2
         \end{itemize}
         
         all $\varphi \in Stage(n + 1) \setminus Stage(n)$ do not contain two instances of the same ingredient adjacently. 
