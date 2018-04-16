@@ -4,6 +4,10 @@
 \usepackage{amssymb}
 \usepackage{bussproofs}
 
+\newcommand{\MODEL}{\mathcal{M}}
+\newcommand{\LANGUAGE}{\mathcal{L}}
+\newcommand{\TUPLE}[1]{\langle {#1} \rangle}
+
 \usepackage[
 top=0.3in,
 nohead]{geometry}
@@ -25,9 +29,72 @@ nohead]{geometry}
         \AxiomC{$Pa \vee Qa^{(1)}$}
         \AxiomC{$(Pa \vee Qa) \to \bot$}
         \BinaryInfC{$\bot$}
-        \RightLabel{\scriptsize(1) $\neg I$}
+        \RightLabel{\scriptsize(1) $(\neg I)$}
         \UnaryInfC{$\neg(Pa \vee Qa)$}
     \end{prooftree}
+
+    \item 
+    \begin{prooftree}
+        \AxiomC{$Qa \vee Ra^{(3)}$}
+        \AxiomC{$Qa^{(1)}$}
+        \AxiomC{$Qa \to Pa$}
+        \BinaryInfC{$Pa$}
+        \AxiomC{$Ra^{(2)}$}
+        \AxiomC{$Ra \to Pa$}
+        \BinaryInfC{$Pa$}
+        \RightLabel{\scriptsize(1) \scriptsize(2) $(\vee E)$}
+        \TrinaryInfC{$Pa$}
+        \RightLabel{\scriptsize(3) $(\to I)$}
+        \UnaryInfC{$(Qa \vee Ra) \to Pa$}
+        % \RightLabel{\scriptsize(1) $\neg I$}
+        % \UnaryInfC{$\neg(Pa \vee Qa)$}
+    \end{prooftree}
+\end{enumerate}
+
+\subsection*{Problem 2}
+
+\begin{enumerate}
+    % TODO FIX UP THESE BRACKETS
+    \item \begin{align*}
+        Q^{\MODEL} &= \{ m_1 \}\\
+        T^{\MODEL} &= \{ \TUPLE{m_1, m_1}, \TUPLE{m_1, m_2}, \TUPLE{m_2, m_2} \}
+    \end{align*}
+
+    \item Distressingly, $\LANGUAGE$ does not define any constant symbols, nor does $\MODEL$ provide interpretations of constant symbols in  $\MODEL$.
+
+    Thus
+
+    \[\mathcal{M} \nvDash \exists x\, \neg Txx\]
+
+    However assuming $\MODEL^+$, where $\MODEL^+$ is the expanded model $\mathcal{M}$, where $m^{\MODEL} = m$ for all $m \in M$, we see that
+
+    \[M \models \exists x\, \neg Txx\]
+
+    as
+
+    \[\TUPLE{m_{3}^{\MODEL}, m_{3}^{\MODEL}} \not\in T^{\MODEL}\]
+
+    \item No, as $\MODEL$  does not define any constant symbols $\MODEL \nvDash \exists x\, \varphi$ for some arbitrary $\varphi$ (as $x$ will bind no constant symbols), and thus
+
+    \[\MODEL \nvDash \exists x \forall y\, (Qy \leftrightarrow Tyx)\]
+
+    Assuming $\MODEL^+$,
+
+
+    \[\MODEL^+ \nvDash \exists x \forall y\, (Qy \leftrightarrow Tyx)\]
+    
+    By fixing $x$ to $m_{1}^{\MODEL}$, we see that
+
+    \[\forall y \cdot y \in Q^{\MODEL} \leftrightarrow \TUPLE{y, m_{1}^\MODEL} \in T^{\MODEL}\]
+
+    as 
+    
+    \begin{align*}
+    m_{1}^\MODEL & \in Q^{\MODEL}\  \text{and}\ \TUPLE{m_{1}^\MODEL, m_{1}^\MODEL} \in T^{\MODEL}\\
+    m_{2}^\MODEL & \not\in Q^{\MODEL}\  \text{and}\ \TUPLE{m_{2}^\MODEL, m_{1}^\MODEL} \not\in T^{\MODEL}\\
+    m_{3}^\MODEL & \not\in Q^{\MODEL}\  \text{and}\ \TUPLE{m_{3}^\MODEL, m_{1}^\MODEL} \not\in T^{\MODEL}
+    \end{align*}
+
 \end{enumerate}
 
 \end{document}
