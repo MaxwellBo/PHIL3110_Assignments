@@ -196,7 +196,7 @@ nohead]{geometry}
 \subsection*{Problem 4}
 
 \begin{enumerate}
-    \item Suppose $d_{\psi}$ is a derivation of $\Gamma, \varphi \vdash \psi$, with $d_{\psi}$ being from stage $n$.
+    \item $(\to I)$ Suppose $d_{\psi}$ is a derivation of $\Gamma, \varphi \vdash \psi$, with $d_{\psi}$ being from stage $n$.
 
     The $(\to I)$ rule tells us that the $n + 1^{\text{th}}$ stage contains a derivation $d$ of $\Gamma, \varphi \vdash \varphi \to \psi$.
 
@@ -208,7 +208,7 @@ nohead]{geometry}
 
     Thus we have $\MODEL \models \varphi$ and $\MODEL \models \psi$, so $\MODEL \models \varphi \to \psi$.
 
-    \item Suppose:
+    $(\exists E)$ Suppose:
         \begin{itemize}
             \item $d_{\exists}$ is a derivation of $\Gamma \vdash \exists x \varphi (x)$
             \item $d_{\psi}$ is a derivation of $\Delta, \varphi(a) \vdash \psi$, where $a$ does not occur in $\Delta$ or $\exists x \varphi (x)$
@@ -233,6 +233,42 @@ nohead]{geometry}
         But the fact that all models $\MODEL'$ whose only difference from $\MODEL$ is their interpretation of the symbol $a$ are such that $\MODEL' \models \psi$ just means that:
 
         $\exists m \in M\ \MODEL' \models \exists x \varphi (x), \varphi (m)\Leftrightarrow \MODEL \models \psi$.
+
+    \item Suppose $\psi := \chi \vee \delta \in \Delta$. 
+    
+    We claim that $\chi \vee \delta$ iff $\chi \in \Delta$ or $\delta \in \Delta$. 
+    
+    If $\chi \vee \delta \in \Delta$, then by Claim 120 and $(\vee I)$ we have either $\chi$ or $\delta$ in $\Delta$, and by $(\vee E)$ we have $\chi$ \textit{and} $\delta$ in $\Delta$. 
+    
+    If either $\chi$ or $\delta$ are in $\Delta$ then Claim 120 and $(\vee I)$ tell us that $\chi \vee \delta \in \Delta$.
+
+
+    \begin{align*}
+        \chi \vee \delta \in \Delta & \Leftrightarrow  \chi \in \Delta\ || \ \delta \in \Delta\\
+        & \Leftrightarrow \MODEL^{\Delta} \models \chi\ || \ \MODEL^{\Delta} \models \delta\\
+        & \Leftrightarrow \MODEL^{\Delta} \models \chi \vee \delta
+    \end{align*}
+
+    The first $\Leftrightarrow$ is via our claim; the second $\Leftrightarrow$ is by induction hypothesis; and the last $\Leftrightarrow$ is from the $\models$ definition.
+
+    \item Suppose $\psi := \forall x \chi (x)$. 
+    
+        Then we claim $\forall x \chi (x) \in \Delta$ iff there is some constant symbol $a \in \LANGUAGE (C)$ such that $\chi(a) \in \Delta$.
+
+        Suppose $\forall x \chi (x) \in \Delta$. Then by Claim 120 and $(\forall E)$, there is some $a \in \LANGUAGE (C)$ such that $\chi(a) \in \Delta$.
+
+
+        On the other hand, if for some some $a \in \LANGUAGE(C)$, $\chi (a) \in \Delta$, then by Claim 120 and $(\forall I)$, $\forall x \chi (x) \in \Delta$. 
+
+        Then we have
+
+    \begin{align*}
+        \forall x \chi (x)\in \Delta & \Leftrightarrow \text{there is some } a \in M^{\Delta} \text{ such that } \chi(a) \in \Delta\\
+        & \Leftrightarrow \text{there is some } a \in M^{\Delta} \text{ such that } \MODEL^{\Delta} \models \chi (a)\\
+        & \Leftrightarrow \MODEL^{\Delta} \models \forall x \chi (x)
+    \end{align*}
+
+    The first $\Leftrightarrow$ is via our claim; the second $\Leftrightarrow$ is by induction hypothesis; and the final $\Leftrightarrow$ is was via the $\models$ definition.
 
 \end{enumerate}
 
