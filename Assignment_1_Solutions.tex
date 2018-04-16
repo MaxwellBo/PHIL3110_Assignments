@@ -191,10 +191,50 @@ nohead]{geometry}
 
         Thus, $n + 1 \in A$. Then by induction, we see that every $n \in A$.
     
-    \subsection*{Problem 4}
-
 \end{enumerate}
 
+\subsection*{Problem 4}
+
+\begin{enumerate}
+    \item Suppose $d_{\psi}$ is a derivation of $\Gamma, \varphi \vdash \psi$, with $d_{\psi}$ being from stage $n$.
+
+    The $(\to I)$ rule tells us that the $n + 1^{\text{th}}$ stage contains a derivation $d$ of $\Gamma, \varphi \vdash \varphi \to \psi$.
+
+    We must show $\Gamma, \varphi \models \varphi \to \psi$. 
+    
+    Since $d_{\psi} \in Stage_{Der}(n)$ we have $\Gamma, \varphi \models \psi$.
+
+    Let $\MODEL$ be a model which $\MODEL \models \gamma$ for all $\gamma \in \Gamma \cup \varphi$.
+
+    Thus we have $\MODEL \models \varphi$ and $\MODEL \models \psi$, so $\MODEL \models \varphi \to \psi$.
+
+    \item Suppose:
+        \begin{itemize}
+            \item $d_{\exists}$ is a derivation of $\Gamma \vdash \exists x \varphi (x)$
+            \item $d_{\psi}$ is a derivation of $\Delta, \varphi(a) \vdash \psi$, where $a$ does not occur in $\Delta$ or $\exists x \varphi (x)$
+        \end{itemize}
+
+        where all are members of stage $n$. Then the $(\exists E)$ rule tells us that the $n + 1^{\text{th}}$ stage contains a derivation $d$ of $\Gamma, \Delta, \varphi (a) \vdash \psi$.
+
+        We must show that $\Gamma, \Delta, \varphi (a) \models \psi$.
+
+        Since $d_{\exists} \in Stage_{Der}(n)$, we have $\Gamma\models \exists x \varphi (x)$.
+
+        Since $d_{\psi} \in Stage_{Der}(n)$, we have $\Delta, \varphi (a) \models \psi$.
+
+
+    Let $\MODEL$ be a model which $\MODEL \models \gamma$ for all $\gamma \in \Delta \cup \varphi (a)$.
+        Then $\MODEL \models \psi$.
+
+
+        Suppose that $m = a^{\MODEL}$. Now consider any model $\MODEL'$ which is exactly like $\MODEL$ except that $a^{\MODEL'} = m' \neq a^{\MODEL} = m$; i.e., we let $a^{\MODEL'}$ be some arbitrary other $m'$ from the domain $M$. Since $\Delta \cup \varphi (a)$ has a sentence with the constant symbol $a$ in it, $\MODEL'$ only models $\psi$ if it models  $\varphi (a)$.
+
+
+        But the fact that all models $\MODEL'$ whose only difference from $\MODEL$ is their interpretation of the symbol $a$ are such that $\MODEL' \models \psi$ just means that:
+
+        $\exists m \in M\ \MODEL' \models \exists x \varphi (x), \varphi (m)\Leftrightarrow \MODEL \models \psi$.
+
+\end{enumerate}
 
 
 \end{document}
