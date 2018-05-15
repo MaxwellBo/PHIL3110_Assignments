@@ -8,7 +8,7 @@
 
 ; ALGORITHM SUMMARY: Move a loop pointer through the parameter array, 
 ; terminating the loop when the pointer reaches the end of the parameter array. 
-; On each loop, add two 1s to the end of the accumulator array.
+; On each loop, append two 1s to the end of the accumulator array.
 
 ; ### State 0: as per the assignment sheet, the head should start under the 1th cell
 ; Furthermore, this instruction moves the head into the correct position for 
@@ -21,7 +21,7 @@
 
 ; This instruction puts down the new loop pointer.
 ; This either initializes it (if we came from State 0), 
-; or increments it (if we came from State 5)
+; or increments it (if we came from State 6)
 s1	1	-	R	s2
 
 ; ### State 2 deals with getting to the start of the accumulator array
@@ -31,26 +31,27 @@ s2	1	1	R	s2
 ; Jump over the divider
 s2	-	-	R	s3
  
-; ### State 3 deals with either:
+; ### State 4 and 5 deal with getting to the end of the accumulator, 
+; and appending two 1s.
 ; Glide over the accumulator...
 s3	1	1	R	s3
 
 ; ... until we pop out the end of the accumulator. Put down a 1...
-s3	-	1	R	s40
+s3	-	1	R	s4
 
 ; ... and another one. Now we've gotta turn back around and increment the loop variable.
-s40	-	1	L	s4
+s4	-	1	L	s5
 
-; ### State 4 deals with trying to get back to the end of the parameter array
+; ### State 5 deals with trying to get back to the end of the parameter array
 ; Glide back over the accumulator array
-s4	1	1	L	s4
-; Jump over the divider
-s4	-	-	L	s5
-
-; ### State 5 deals with incrementing our loop variable
-; Glide over our parameter array... 
 s5	1	1	L	s5
+; Jump over the divider
+s5	-	-	L	s6
+
+; ### State 6 deals with incrementing our loop variable
+; Glide over our parameter array... 
+s6	1	1	L	s6
 
 ; ...until we hit our loop pointer. We clear the current loop pointer, shift the
 ; head right, and loop back to state 0, so that it may deal with the next loop iteration
-s5	-	1	R	s1
+s6	-	1	R	s1
