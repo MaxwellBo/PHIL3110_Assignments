@@ -1,0 +1,45 @@
+; This program accepts a block of n-many 1’s and outputs a block of 2n-many 1’s, 
+; after the original block with a single blank space separating them; 
+
+; Henceforth:
+; - the n-many 1's will be referred to as the "parameter array"
+; - the 2n-many 1's will be referred to as the "accumulator array"
+; - the single blank space seperating them will be referred to as "the divider"
+
+; SUMMARY:
+
+; State 0: as per the assignment sheet, the head should start under the 1th cell
+0	- 	-	R	s1
+
+; State 1 deals with initializing our loop variable
+; flip the first encountered 1 to a -. We progressively shift this blank over
+; the parameter array as a loop variable, where [_ 1 1 1] commences the first
+; loop, and [1 1 1 1] halts the loop
+s1	1	-	R	s2
+
+; State 2 deals with getting to the start of the accumulator array
+; Glide over the parameter array
+s2	1	1	R	s2
+
+; Jump over the divider
+s2	-	-	R	s3
+ 
+; State 3 deals with either:
+; Glide over the accumulator...
+s3	1	1	R	s3
+
+; ... until we pop out the end of the accumulator. Put down a 1...
+s3	-	1	R	s40
+
+; ... and another one. Now we've gotta turn back around and increment the loop variable.
+s40	-	1	L	s4
+
+; State 4 deals with trying to get back to the end of the parameter array
+; Glide back over the accumulator array
+s4	1	1	L	s4
+; Jump over the divider
+s4	-	-	L	s5
+
+; State 5 deals with 
+s5	1	1	L	s5
+s5	-	1	R	s1
