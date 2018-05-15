@@ -11,47 +11,56 @@
 ; On each loop, append two 1s to the end of the accumulator array.
 
 ; ### State 0: as per the assignment sheet, the head should start under the 1th cell
-; Furthermore, this instruction moves the head into the correct position for 
-; initializing our loop pointer
-0	- 	-	R	s1
+0	- 	-	R	1
 
-; ### State 1 deals with placing our loop pointer
+; ### State 1 deals with placing our loop pointer, and halting the loop
 ; Our loop pointer is a blank, that shifts through our parameter array.
 ; where [_ 1 1 1] starts the loop, and [1 1 1 1] halts the loop
 
 ; This instruction puts down the new loop pointer.
 ; This either initializes it (if we came from State 0), 
 ; or increments it (if we came from State 6)
-s1	1	-	R	s2
+1	1	-	R	2
 
 ; ### State 2 deals with getting to the start of the accumulator array
 ; Glide over the parameter array
-s2	1	1	R	s2
+2	1	1	R	2
 
 ; Jump over the divider
-s2	-	-	R	s3
+2	-	-	R	3
  
 ; ### State 4 and 5 deal with getting to the end of the accumulator, 
 ; and appending two 1s.
 ; Glide over the accumulator...
-s3	1	1	R	s3
+3	1	1	R	3
 
 ; ... until we pop out the end of the accumulator. Put down a 1...
-s3	-	1	R	s4
+3	-	1	R	4
 
 ; ... and another one. Now we've gotta turn back around and increment the loop variable.
-s4	-	1	L	s5
+4	-	1	L	5
 
 ; ### State 5 deals with trying to get back to the end of the parameter array
 ; Glide back over the accumulator array
-s5	1	1	L	s5
+5	1	1	L	5
 ; Jump over the divider
-s5	-	-	L	s6
+5	-	-	L	6
 
 ; ### State 6 deals with incrementing our loop variable
 ; Glide over our parameter array... 
-s6	1	1	L	s6
+6	1	1	L	6
 
 ; ...until we hit our loop pointer. We clear the current loop pointer, shift the
-; head right, and loop back to state 0, so that it may deal with the next loop iteration
-s6	-	1	R	s1
+; head right, and loop back to state 0, so that it may deal with the next loop iteration.
+6	-	1	R	1
+
+; This is our loop halting condition. State 6 has cleared the loop pointer,
+; and pushed the head onto the divider. We still have to move the head to the 1th cell.
+1	-	-	L	7
+
+; #### State 7 deals with getting to the 1th cell, and halting
+; Glide back over our parameter array...
+7	1 	1	L	7
+
+; ... and halt when we pop out the start
+; INSTRUCTION OMITTED FOR -
