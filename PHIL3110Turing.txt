@@ -62,5 +62,6 @@
 ; Glide back over our parameter array...
 7	1 	1	L	7
 
-; ... and halt when we pop out the start
-; INSTRUCTION OMITTED FOR -
+; ... and when we pop out past the head of the parameter array, shift right to
+; the 1th cell, and halt
+7	-	-	R	halt
