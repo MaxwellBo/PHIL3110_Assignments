@@ -1,0 +1,71 @@
+\documentclass[a4paper]{article}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bussproofs}
+\usepackage{verbatim}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+
+\newtheorem{proof}{Proof}
+
+\newcommand{\MODEL}{\mathcal{M}}
+\newcommand{\LANGUAGE}{\mathcal{L}}
+\newcommand{\TUPLE}[1]{\langle {#1} \rangle}
+\newcommand{\SET}[1]{\{ {#1} \}}
+\newcommand{\PV}{\varphi}
+\newcommand{\QV}{\psi}
+
+\title{PHIL3110 - Assignment 2}
+\author{Maxwell Bo}
+
+\begin{document} 
+
+\maketitle
+
+\subsection*{Problem 1}
+
+\begin{definition}
+$f: \mathcal{X} \rightarrowtail \mathcal{Y}$ is is injective $\Leftrightarrow$ $\forall x_1, x_2 \in \mathcal{X}$ if $F(x_1) = F(x_2)$ then $x_1 = x_2$.
+\end{definition}
+
+\begin{theorem}
+    If $f: \mathcal{X} \rightarrowtail \mathcal{Y}$ is injective and $g: \mathcal{Y} \rightarrowtail \mathcal{Z}$ is injective, then $g \circ f$ is injective.
+\end{theorem}
+
+\begin{proof}
+Suppose $f: \mathcal{X} \rightarrowtail \mathcal{Y}$ is injective and $g: \mathcal{Y} \rightarrowtail \mathcal{Z}$ is injective. We must show that $g \circ f$ is injective. Suppose $x_1$ and $x_2$ are elements of $\mathcal{X}$ such that
+
+\[(g \circ f)(x_1) = (g \circ f)(x_2)\]
+
+By definition of composition of functions,
+
+\[g(f(x_1)) = g(f(x_2))\]
+
+Since $g$ is injective
+
+\[f(x_1) = f(x_2)\]
+
+And since $f$ is injective
+
+\[x_1 = x_2\]
+
+\end{proof}
+
+\begin{theorem}
+If there is some injection $f: A \rightarrowtail B$, then $A \precsim B$, and vice-versa.
+\end{theorem}
+
+If $A$, $B$ and $C$ are sets such that $A \precsim B$ and $B \precsim C$, there exists an injective $f: A \rightarrowtail B$ and injective $g: B \rightarrowtail C$. Per theorem 1, $g \circ f: A \rightarrowtail C$ is injective. Per thereom 2, $g \circ f$ implies $A \precsim C$.
+
+\newpage
+\subsection*{Problem 2}
+
+\verbatiminput{PHIL3110Turing.txt}
+
+\subsection*{Problem 3}
+
+
+\end{document}
