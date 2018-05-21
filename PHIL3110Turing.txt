@@ -51,7 +51,7 @@
 6	1	1	L	6
 
 ; ...until we hit our loop pointer. We clear the current loop pointer, shift the
-; head right, and loop back to state 0, so that it may deal with the next loop iteration.
+; head right, and loop back to state 1, so that it may deal with the next loop iteration.
 6	-	1	R	1
 
 ; This is our loop halting condition. State 6 has cleared the loop pointer,

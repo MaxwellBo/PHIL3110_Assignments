@@ -28,7 +28,7 @@
 \subsection*{Problem 1}
 
 \begin{definition}
-$f: \mathcal{X} \rightarrowtail \mathcal{Y}$ is is injective $\Leftrightarrow$ $\forall x_1, x_2 \in \mathcal{X}$ if $F(x_1) = F(x_2)$ then $x_1 = x_2$.
+$f: \mathcal{X} \rightarrowtail \mathcal{Y}$ is injective $\Leftrightarrow$ $\forall x_1, x_2 \in \mathcal{X}$ if $F(x_1) = F(x_2)$ then $x_1 = x_2$.
 \end{definition}
 
 \begin{theorem}
@@ -55,10 +55,10 @@ And since $f$ is injective
 \end{proof}
 
 \begin{theorem}
-If there is some injection $f: A \rightarrowtail B$, then $A \precsim B$, and vice-versa.
+There is some injection $f: A \rightarrowtail B$ $\Leftrightarrow$ $A \precsim B$.
 \end{theorem}
 
-If $A$, $B$ and $C$ are sets such that $A \precsim B$ and $B \precsim C$, there exists an injective $f: A \rightarrowtail B$ and injective $g: B \rightarrowtail C$. Per theorem 1, $g \circ f: A \rightarrowtail C$ is injective. Per thereom 2, $g \circ f$ implies $A \precsim C$.
+If $A$, $B$ and $C$ are sets such that $A \precsim B$ and $B \precsim C$, there exists an injective $f: A \rightarrowtail B$ and injective $g: B \rightarrowtail C$. Per theorem 1, $g \circ f: A \rightarrowtail C$ is injective. Per thereom 2, $g \circ f$ entails $A \precsim C$.
 
 \subsection*{Problem 2}
 
@@ -66,21 +66,104 @@ If $A$, $B$ and $C$ are sets such that $A \precsim B$ and $B \precsim C$, there 
 
     \item
 
+\[\varphi_1 := (\exists x)(x)\] says that there is at least 1 object, and
+
 \[\varphi_2 := (\exists x)(\exists y) (x \neq y)\] says that there at least 2 objects.
 
-Thus \[\varphi_n := (\exists x_1)(\exists n_2) \ldots (\exists x_n)( x_1 \neq \ x_2 \neq \ldots \neq x_n) \] says that for any natural number $n$, there are at least $n$ objects.
+Thus \[\varphi_n := (\exists x_1)(\exists x_2) \ldots (\exists x_n)( x_1 \neq x_2 \neq \ldots \neq x_n) \] says that for any natural number $n$, there are at least $n$ objects.
 
     \item
 
+    We need to prove that every finite subset $\Delta$ of $S$ has a model, e.g. there exists a model $\mathcal{M}$ such that $\mathcal{M} \models \Delta$.
+
+    First, we'll define a stage based defintion of $S$, where:
+
+    \begin{align*}
+        s(0) & = T\\
+        s(n + 1) & = s(n) \cap \SET { \varphi_{n + 1}}
+    \end{align*}
+
+    such that $\SET{ s(n) \mid n \in \omega } = S$.
+
+    At each step, we need to show that
+
+    \begin{itemize}
+        \item The model that satisfies $s(n)$ defines $s(n)$ objects
+        \item The model is finitely satisfiable 
+        
+    \end{itemize}
+
+    \subsubsection*{Base} 
+    $0 \in A$. We can fix some $\mathcal{M}$ where $\mathcal{T} \subseteq \mathcal{M}$, where $\mathcal{T} \models T$ for every finite subset $\Delta$ of $s(0)$.
+    
+        The only finite subset of $s(0)$ is $T$.
+        
+        By our fix of $\mathcal{M}$, $\mathcal{M} \models T$. Therefore, $s(0)$ is finitely satisfiable - $\mathcal{M} \models s(0)$.
+    
+        $\mathcal{M}$ defines at least 0 objects.
+
+    \subsubsection*{Induction Step} 
+
+    Suppose $n \in A$. 
+    
+    Let $\mathcal{N}$ be the model that satisfied $s(n)$. It defined at least $n$ objects. 
+
+    $\mathcal{N} \not\models \Delta$ for each finite subset $\Delta$ of $s(n + 1)$.
+
+    Why?
+
+    The only finite subset $\Delta$ of $s(n + 1) \setminus s(n)$ is $\SET{\varphi_{n + 1}}$.
+
+    Consider the only sentence in $\Delta$, $\varphi_{n + 1}$. 
+
+    In order for $\mathcal{N} \models \varphi_{n + 1}$, $\mathcal{N}$ would need to define $n + 1$ objects.
+
+    Consider some $\mathcal{M}$ that defines a new object, so that $\mathcal{N} \subseteq \mathcal{M}$. Now $\mathcal{M}$ defines at least $n + 1$ objects. 
+
+    By theorem 139, as $\gamma$ is $\Sigma_1$, and $\mathcal{N} \models \varphi_n$\footnote{$\varphi_n \in s(n) \setminus s(n -1)$}, $M \models \varphi_{n + 1}$.
+    
+    As $\mathcal{M} \models s(n)$, and $\mathcal{M} \models s(n + 1) \setminus s(n)$, every finite subset $\Delta$ of $s(n) \cup (s(n + 1) \setminus s(n))$ is satisfiable. Therefore $s(n + 1)$ is finitely satisfiable - $\mathcal{M} \models s(n + 1)$ 
+
+    Thus, $n + 1 \in A$. Then by induction, we see that every $n \in A$.
+
+    Every finite subset $\Delta$ of $S$ has a model.
+
+    \item 
 
 \end{enumerate}
-
 
 \newpage
 \subsection*{Problem 3}
 
 \verbatiminput{PHIL3110Turing.txt}
 
+\subsection*{Problem 4}
 
+We will attempt to demonstrate that $A$ is recursive. The same process may be repeated to show that $B$ and $C$ are also recurisve.
+
+By definition, $A$ is recursively enumerable, and that $A \subseteq \omega$. To prove that $A$ is recurisive, we must show that  $\omega \setminus A$ is recursively enumerable.
+
+    Suppose $\omega \setminus A$ was not recursively enumerable.
+
+    There exists an $n \in \omega \setminus A$, such that no $\varphi_e$ exists, that has a domain $\omega \setminus A$, and halts when applied to $n$.
+
+    As $B$ and $C$ are recursively enumerable there are partial recursive functions $\varphi_B$ and $\varphi_C$ which have the domains of $B$ and $C$ respectively. We can define a function 
+    $$
+    \varphi_{B \cup C}(n) = 
+    \begin{cases}
+        \varphi_b(n), &\mbox{if } \varphi_b(n) \text{ halts.}\\
+        \varphi_c(n), &\mbox{if } \varphi_c(n) \text{ halts.}\\
+        \text{undefined,} &\mbox{ otherwise.} 
+    \end{cases} 
+    $$
+
+    which has the domain $B \cup C$. By definition $A \cap B \cap C = \omega$, $B \cap C = \omega \setminus A$.
+
+    This means we have found a partially recursive function, $\varphi_{B \cup C}$, that has the domain $n \in \omega \setminus A$ and halts on every $n \in \omega \setminus A$. This is a contradiction.
+
+    Thus, $\omega \setminus A$ is recursively enumerable.
+
+    Thus, $A$ is recursive.
+    
 
 \end{document}
