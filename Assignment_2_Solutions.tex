@@ -120,15 +120,17 @@ Thus \[\varphi_n := (\exists x_1)(\exists x_2) \ldots (\exists x_n)( x_1 \neq x_
 
     Consider some $\mathcal{M}$ that defines a new object, so that $\mathcal{N} \subseteq \mathcal{M}$. Now $\mathcal{M}$ defines at least $n + 1$ objects. 
 
-    By theorem 139, as $\gamma$ is $\Sigma_1$, and $\mathcal{N} \models \varphi_n$\footnote{$\varphi_n \in s(n) \setminus s(n -1)$}, $M \models \varphi_{n + 1}$.
+    By theorem 139, as $\gamma$ is of the form $\Sigma_1$, and $\mathcal{N} \models \varphi_n$\footnote{$\varphi_n \in s(n) \setminus s(n -1)$}, $M \models \varphi_{n + 1}$.
     
-    As $\mathcal{M} \models s(n)$, and $\mathcal{M} \models s(n + 1) \setminus s(n)$, every finite subset $\Delta$ of $s(n) \cup (s(n + 1) \setminus s(n))$ is satisfiable. Therefore $s(n + 1)$ is finitely satisfiable - $\mathcal{M} \models s(n + 1)$ 
+    As $\mathcal{M} \models s(n)$, and $\mathcal{M} \models s(n + 1) \setminus s(n)$, every finite subset $\Delta$ of $s(n) \cup (s(n + 1) \setminus s(n))$ is satisfiable.
+
+    Thus, every finite subset $\Delta$ of $s(n + 1)$ is satisfiable. 
 
     Thus, $n + 1 \in A$. Then by induction, we see that every $n \in A$.
 
-    Every finite subset $\Delta$ of $S$ has a model.
+    $S$ is finitely satisfiable.
 
-    \item 
+    \item As every finite subset $\Delta$ of $S$ has a model, by the compactness theorem, there is a model $\mathcal{M}$ such that $\mathcal{M} \models S$. By the previous step, we know that $\mathcal{M}$ defines $\omega$ objects to satisfy $S$. $\omega$ is infinite. Therefore, $\mathcal{M}$ is infinite.
 
 \end{enumerate}
 
