@@ -1,0 +1,185 @@
+\documentclass[a4paper]{article}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bussproofs}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\setcounter{theorem}{117}
+\newtheorem{definition}{Definition}
+\newtheorem{proof}{Proof}
+\newtheorem{claim}{Claim}
+\setcounter{claim}{119}
+
+\newcommand{\MODEL}{\mathcal{M}}
+\newcommand{\LANGUAGE}{\mathcal{L}}
+\newcommand{\TUPLE}[1]{\langle {#1} \rangle}
+\newcommand{\SET}[1]{\{ {#1} \}}
+\newcommand{\PV}{\varphi}
+\newcommand{\QV}{\psi}
+
+\title{PHIL3110 - Exam}
+\author{Maxwell Bo}
+
+\begin{document} 
+
+\maketitle
+
+\section*{Part A}
+
+\subsection*{Problem 1}
+
+\begin{enumerate}
+
+    \item
+
+Let $\beta = \SET{ \varphi \mid \varphi \in \Gamma \wedge \varphi \in \Delta }$.
+
+Say there's some $\varphi$ such that $\beta \models \varphi$ but $\varphi \not\in \beta$. If $\varphi \not\in \beta$, then $\varphi \not\in \Gamma$ and $\varphi \not\in \Delta$.
+
+    \item
+
+If there is no proper subset $\Xi$ of $\Gamma$ such that $\Xi$ is a theory, there always exists a $\varphi$ such that $\Xi \models \varphi$ but $\varphi \not\in \Xi$.
+
+\end{enumerate}
+
+\subsection*{Problem 2}
+
+    \begin{prooftree}
+        \AxiomC{$(P \rightarrow Q) \rightarrow P$}
+    \end{prooftree}
+
+
+\subsection*{Problem 3}
+
+\subsection*{Problem 6}
+
+\begin{enumerate}
+    \item 
+
+Let $\MODEL$ be a model with domain $M = \SET{}$. 
+
+
+    $\not\exists x(x = x)$ is a consequence.
+
+    Furthermore, we run into some strangeness when we find that $\forall x (x \neq x)$ is a consequence.
+
+    $\forall x \varphi(x) \Rrightarrow \exists x \varphi(x)$ no longer holds either.
+
+    In other words, free logic admits existentially quantified formulas always being false in the empty domain, and universally quantified formulas always being true.
+    
+    Furthermore, the notion that $\neg \exists x \varphi(x) \Rrightarrow \forall x \neg \varphi (x)$ ceases to be meaningful.
+
+
+    \item  
+
+Our goal is to show that if $\models_{f} \varphi$, then $\vdash_{Tab} \varphi$. In other words, if every model $\MODEL$ (of the language $\varphi$) is such that if $\MODEL \models \varphi$ then the tableau commencing with $\neg \varphi$ is closed.
+
+
+% $\forall \gamma \in \Gamma$, $\MODEL \models \gamma$, then $\MODEL \models \varphi$, then there is a proof of $\varphi$ using assumptions among $\Gamma$.
+
+By contraposition, if $\not\vdash_{Tab} \varphi$ then $ \not\models_{f} \varphi$.
+
+In other words, if the tableau commencing with $\neg \varphi$ does not close, then there is some $\MODEL$ such that $M \models \neg \varphi$.
+
+% We should show that should there be no proof of $\varphi$ from assumptions in $\Gamma$, then we can construct a set of sentences that describe a model in which $\Gamma \cup \SET{\neg \varphi}$ is true.
+
+Rather than choosing some open branch $\mathcal{B}$ of a tableau commencing with $\neg \varphi$, and defining a $\MODEL^{\mathcal{B}}$, and reasoning with +-complexity, we'll use a $\Delta$ that is maximally consistent\footnote{for an arbitrary $\varphi$ either $\varphi \in \Delta$ or $\neg \varphi \in \Delta$} and existentially witnessed\footnote{if $\exists x \varphi(x) \in \Delta$, then for some constant symbol $a$, $\varphi(a) \in \Delta$} set of of sentences. 
+
+Let $\MODEL^{\Delta}$ be such that:
+
+\begin{itemize}
+    \item $M^{\Delta}$ is the set of constant symbols $a$ occurring in the stentences in $\Delta$.
+    \item for each constant symbol $a$, let $a^{\MODEL} = a$
+    \item for each $n$-ary relation symbol $R$ of $\LANGUAGE(C)$ let $R^{\MODEL}$ be the set of $n$-tuples $\TUPLE{a_1, ..., a_n}$ such that $Ra_1,...,a_n$ is in $\Delta$.
+\end{itemize}
+
+Reiterating
+
+\begin{claim}
+    Suppose $\Delta$ is maximal consistent. Then $\varphi \in \Delta \Leftrightarrow \MODEL^{\Delta} \models \varphi$
+\end{claim}
+
+but eliding \textsc{Proof 120}\footnote{Page 77 of course notes}.
+
+We will show $\varphi \in \Delta \Rightarrow \MODEL^{\Delta} \models \varphi$
+
+We proceed by induction on the complexity of the forumula.
+
+\subsubsection*{Base}
+
+Suppose $\psi := \chi$. Then
+
+    \begin{align*}
+        \chi \in \Delta & \Leftrightarrow \MODEL^{\Delta} \models \chi
+    \end{align*}
+
+    This flows trivially from \textsc{Claim 120}.
+
+\subsubsection*{Induction Step}
+
+\begin{itemize}
+
+    \item Suppose $\psi := \chi \wedge \delta \in \Delta$. 
+    
+    We claim that $\chi \wedge \delta \in \Delta$ iff both $\chi \in \Delta$ and $\delta \in \Delta$. 
+
+    If $\chi \wedge \delta \in \Delta$, then by Claim 120 and tableau rule $(\wedge)$, we have both $\chi$ and $\delta$ in $\Delta$.
+
+    \begin{align*}
+        \chi \wedge \delta \in \Delta & \Rightarrow  \chi \in \Delta\ \text{and} \ \delta \in \Delta\\
+        & \Leftrightarrow \MODEL^{\Delta} \models \chi\ \text{and} \ \MODEL^{\Delta} \models \delta\\
+        & \Leftrightarrow \MODEL^{\Delta} \models \chi \wedge \delta
+    \end{align*}
+
+    The first $\Rightarrow$ is via our claim; the second $\Leftrightarrow$ is by induction hypothesis; and the last $\Leftrightarrow$ is from the $\models$ definition.
+
+    \item Suppose $\psi := \neg \chi$.  Then
+
+    \begin{align*}
+        \neg \chi \in \Delta & \Leftrightarrow  \chi \not\in \Delta\\
+        & \Leftrightarrow \MODEL^{\Delta} \not\models \chi\\
+        & \Leftrightarrow \MODEL^{\Delta} \models \neg\chi
+    \end{align*}
+
+
+    The first $\Leftrightarrow$ is via the completeness of $\Delta$; the second $\Leftrightarrow$ is by the induction hypothesis,; and the last is via the $\models$ definition.
+
+    \item Suppose $\psi := \forall x \chi (x)$.
+
+        If $\chi in \delta$, then by \textsc{Claim 120} and tableau rule $(\neg)$, $\chi \not\in \Delta$.
+    
+        \textit{We do not claim} claim $\forall x \chi (x) \in \Delta$ iff there is some constant symbol $a \in \LANGUAGE (C)$ such that $\chi(a) \in \Delta$.
+
+        Suppose $\forall x \chi (x) \in \Delta$. Then by \textsc{Claim 120} and $(\forall E)$, there is some $a \in \LANGUAGE (C)$ such that $\chi(a) \in \Delta$.
+
+
+        On the other hand, if for some some $a \in \LANGUAGE(C)$, $\chi (a) \in \Delta$, then by \textsc{Claim 120} and $(\forall I)$, $\forall x \chi (x) \in \Delta$. 
+
+        Then we have
+
+    \begin{align*}
+        \forall x \chi (x)\in \Delta & \Leftrightarrow \text{there is some } a \in M^{\Delta} \text{ such that } \chi(a) \in \Delta\\
+        & \Leftrightarrow \text{there is some } a \in M^{\Delta} \text{ such that } \MODEL^{\Delta} \models \chi (a)\\
+        & \Leftrightarrow \MODEL^{\Delta} \models \forall x \chi (x)
+    \end{align*}
+
+    The first $\Leftrightarrow$ is via our claim; the second $\Leftrightarrow$ is by induction hypothesis; and the final $\Leftrightarrow$ is was via the $\models$ definition.
+
+
+
+\end{itemize}
+
+
+
+
+Def 82 for consistency
+
+
+\end{enumerate}
+
+
+
+
+\end{document}
