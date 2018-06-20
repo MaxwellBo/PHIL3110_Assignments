@@ -3,6 +3,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{bussproofs}
+\usepackage{forest}
 
 \newtheorem{lemma}{Lemma}
 \newtheorem{theorem}{Theorem}
@@ -72,7 +73,54 @@ Let $\MODEL$ be a model with domain $M = \SET{}$.
     Furthermore, the notion that $\neg \exists x \varphi(x) \Rrightarrow \forall x \neg \varphi (x)$ ceases to be meaningful.
 
 
-    \item  
+    \item \subsubsection*{Rules}
+
+    We're also going to consider $\exists$ in the set logical vocabulary, because, why not?
+
+    \begin{forest}
+        [, phantom, s sep = 1cm
+            [$\varphi \wedge \psi (\wedge)$
+                [$\varphi ~ \psi$]
+            ]
+            [$\neg(\varphi \wedge \psi) (\neg \wedge)$
+                [$\varphi$]
+                [$\psi$]
+            ]
+            [$\neg\neg \varphi (\neg \neg)$
+                [$\varphi$]
+            ]
+            [$\forall x \varphi(x) (\forall)$
+                [$\neg E!a$]
+                [$\varphi(a)$
+                    [where $a$ is any name]
+                ]
+            ]
+            [$\neg\forall x \varphi(x) (\neg \forall)$
+                [$E!a ~ \varphi(a)$
+                    [where $a$ is new]
+                ]
+            ]
+        ]
+    \end{forest}
+
+    \begin{forest}
+        [, phantom, s sep = 1cm
+            [$\exists x \varphi(x) (\exists)$
+                [$E!a ~ \varphi(a)$
+                    [where $a$ is new]
+                ]
+            ]
+            [$\neg\exists x \varphi(x) (\neg \exists)$
+                [???]
+            ]
+        ]
+    \end{forest}
+
+    where $E!c$ expands to $\exists x (x = c)$\footnote{I had to do this because the forest package wouldn't typeset leaves over a certain number of characters}.
+
+    By new we mean that the name $a$ has not occured anywhere on the branches above.
+
+    \item
 
 Our goal is to show that if $\models_{f} \varphi$, then $\vdash_{Tab} \varphi$. In other words, if every model $\MODEL$ (of the language $\varphi$) is such that if $\MODEL \models \varphi$ then the tableau commencing with $\neg \varphi$ is closed.
 
@@ -135,7 +183,9 @@ Suppose $\psi := \chi$. Then
 
     The first $\Rightarrow$ is via our claim; the second $\Leftrightarrow$ is by induction hypothesis; and the last $\Leftrightarrow$ is from the $\models$ definition.
 
-    \item Suppose $\psi := \neg \chi$.  Then
+    \item Suppose $\psi := \neg \chi$.
+
+    If $\chi \in \delta$, then by \textsc{Claim 120} and tableau rule $(\neg)$, $\chi \not\in \Delta$.
 
     \begin{align*}
         \neg \chi \in \Delta & \Leftrightarrow  \chi \not\in \Delta\\
@@ -144,38 +194,59 @@ Suppose $\psi := \chi$. Then
     \end{align*}
 
 
-    The first $\Leftrightarrow$ is via the completeness of $\Delta$; the second $\Leftrightarrow$ is by the induction hypothesis,; and the last is via the $\models$ definition.
+    The first $\Leftrightarrow$ is via the completeness of $\Delta$; the second $\Leftrightarrow$ is by the induction hypothesis; and the last is via the $\models$ definition.
 
     \item Suppose $\psi := \forall x \chi (x)$.
 
-        If $\chi in \delta$, then by \textsc{Claim 120} and tableau rule $(\neg)$, $\chi \not\in \Delta$.
-    
-        \textit{We do not claim} claim $\forall x \chi (x) \in \Delta$ iff there is some constant symbol $a \in \LANGUAGE (C)$ such that $\chi(a) \in \Delta$.
+        We claim $\forall x \chi (x) \in \Delta$ for every constant symbol $a \in \LANGUAGE (C)$ such that $\chi(a) \in \Delta$.
 
-        Suppose $\forall x \chi (x) \in \Delta$. Then by \textsc{Claim 120} and $(\forall E)$, there is some $a \in \LANGUAGE (C)$ such that $\chi(a) \in \Delta$.
+        Suppose $\forall x \chi (x) \in \Delta$. 
 
+        Suppose $\LANGUAGE(C) \neq \SET{}$, which given our definiton of $\MODEL^{\Delta}$, occurs when $M^{\Delta} \neq \SET{}$. 
 
-        On the other hand, if for some some $a \in \LANGUAGE(C)$, $\chi (a) \in \Delta$, then by \textsc{Claim 120} and $(\forall I)$, $\forall x \chi (x) \in \Delta$. 
+        Then by claim \textsc{Claim 120} and tableau rule $(\forall)$ , for all $a \in \LANGUAGE(C)$, $\chi(a) \in \Delta$.
+
+        Suppose $\LANGUAGE(C) = \SET{}$. We assert that there must be something in $\Delta$ that says there is no $a \in \LANGUAGE(C)$.
+        
+        Then by \textsc{Claim 120} and tableau rule $(\forall)$, there is some $\varphi$ of the form $\neg \exists y(y = a)$ such that $\varphi \in \Delta$.
+
+        On the other hand, if for some some $a \in \LANGUAGE(C)$, $\chi (a) \in \Delta$, then by \textsc{Claim 120} and $(\forall)$, $\forall x \chi (x) \in \Delta$. 
 
         Then we have
 
     \begin{align*}
-        \forall x \chi (x)\in \Delta & \Leftrightarrow \text{there is some } a \in M^{\Delta} \text{ such that } \chi(a) \in \Delta\\
-        & \Leftrightarrow \text{there is some } a \in M^{\Delta} \text{ such that } \MODEL^{\Delta} \models \chi (a)\\
+        \forall x \chi (x)\in \Delta & \Rightarrow \text{for all } a \in M^{\Delta} \text{, } \chi(a) \in \Delta \text{ or } \neg \exists y(y = a) \in \Delta\\
+        & \Leftrightarrow \text{for all } a \in M^{\Delta} \text{, } \MODEL^{\Delta} \models \chi(a) \in \Delta \text{ or } \MODEL^{\Delta} \models \neg \exists y(y = a)\\
         & \Leftrightarrow \MODEL^{\Delta} \models \forall x \chi (x)
     \end{align*}
 
-    The first $\Leftrightarrow$ is via our claim; the second $\Leftrightarrow$ is by induction hypothesis; and the final $\Leftrightarrow$ is was via the $\models$ definition.
+    The first $\Rightarrow$ is via our claim; the second $\Leftrightarrow$ is by induction hypothesis; and the final $\Leftrightarrow$ is was via the $\models$ definition.
+
+    \item Suppose $\psi := \exists x \chi (x)$. 
+    
+        Then we claim $\exists x \chi (x) \in \Delta$ iff there is some constant symbol $a \in \LANGUAGE (C)$ such that $\chi(a) \in \Delta$.
+
+        Suppose $\exists x \chi (x) \in \Delta$. 
+
+        By the construction of $\Delta$\footnote{it is existentially witnessed}, \textsc{Claim 120} and tableau rule $(\exists)$, there is some $a \in \LANGUAGE(C)$ such that $\chi(a) \in \Delta$. 
+        
+        Furthermore we may also say that there exists some $\varphi$ of the form $\exists y(y = a)$, such that $\varphi \in \Delta$. We would not be able to say this if $\Delta$ were not existentially witnessed.
+
+        Then we have
+
+    \begin{align*}
+        \exists x \chi (x)\in \Delta & \Leftrightarrow \text{there is some } a \in M^{\Delta} \text{ such that } \chi(a) \in \Delta \text{ and } \exists y(y = a) \in \Delta\\
+        & \Leftrightarrow \text{there is some } a \in M^{\Delta} \text{ such that } \MODEL^{\Delta} \models \chi (a) \text{ and } \MODEL^{\Delta} \models \exists y(y = a)\\
+        & \Leftrightarrow \MODEL^{\Delta} \models \exists x \chi (x)
+    \end{align*}
+
+    The first $\Rightarrow$ is via our claim; the second $\Leftrightarrow$ is by induction hypothesis; and the final $\Leftrightarrow$ is was via the $\models$ definition.
+
+    The other cases are left as exercises for the marker.
 
 
 
 \end{itemize}
-
-
-
-
-Def 82 for consistency
-
 
 \end{enumerate}
 
