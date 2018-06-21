@@ -14,6 +14,7 @@
 \setcounter{claim}{119}
 
 \newcommand{\MODEL}{\mathcal{M}}
+\newcommand{\SUBMODEL}{\mathcal{N}}
 \newcommand{\LANGUAGE}{\mathcal{L}}
 \newcommand{\TUPLE}[1]{\langle {#1} \rangle}
 \newcommand{\SET}[1]{\{ {#1} \}}
@@ -39,9 +40,18 @@ Let $\beta = \SET{ \varphi \mid \varphi \in \Gamma \wedge \varphi \in \Delta }$.
 
 Say there's some $\varphi$ such that $\beta \models \varphi$ but $\varphi \not\in \beta$. If $\varphi \not\in \beta$, then $\varphi \not\in \Gamma$ and $\varphi \not\in \Delta$.
 
-    \item
+    \textsc{Abortative} I  looked for a counter-example $\varphi$ that could both be true in two seperate sets, but when stripped of its environment (all the $\psi$s in which $\psi \in \Gamma$ but $\psi \not\in \Delta$, and vice-versa) allowed a derivation to something that was not in $\Gamma$ and $\Delta$. I found this very difficult.
 
-If there is no proper subset $\Xi$ of $\Gamma$ such that $\Xi$ is a theory, there always exists a $\varphi$ such that $\Xi \models \varphi$ but $\varphi \not\in \Xi$.
+
+    \item Let $\Xi$ be $\SET{\varphi}$ such that for any $\psi$ not equal to $\varphi$, $\varphi \not\vdash \psi$. In other words, $\varphi$ only derives itself.
+
+    $\Xi$ is a theory. By completeness, $\Xi \models \varphi$, and $\varphi \in \Xi$. Furthermore, also by completeness, there is no $\psi$ such that $\Xi \models \psi$ and $\psi \not\in \Xi$.
+
+    Choose some arbitrary $\chi$. Let $\Gamma = \Xi \cup \SET{\chi} \cup \SET{\text{ sentences required to make } \Gamma \text{ a theory }}$.
+
+    $\Xi$ is a proper subset of $\Gamma$. $\Gamma$ is a theory. Yet $\Xi$ is a theory. This serves as a counter-example.
+
+% If there is no proper subset $\Xi$ of $\Gamma$ such that $\Xi$ is a theory, there always exists a $\varphi$ such that $
 
 \end{enumerate}
 
@@ -53,6 +63,65 @@ If there is no proper subset $\Xi$ of $\Gamma$ such that $\Xi$ is a theory, ther
 
 
 \subsection*{Problem 3}
+
+Let $A$ be the range of the increasing total recursive function $f: \omega \rightarrow \omega$. We interpret ``range'' to mean the image of the function, not its co-domain.
+
+Thus,
+
+\[
+    A = im(f) = \SET{ f(a) \mid a \in dom(f) }
+\]
+
+Recalling \textsc{Definition 190}\footnote{Page 124 of course notes} and \textsc{Defintion 191}\footnote{Page 124 of course notes}, we'll construct a function that for any $n$ will verify whether or not it is in $A$, and halts in finite time. \\
+
+We'll reason informally about this function.\\
+
+First, we'll assume that $im(f)$ is finite. As $f$ is increasing, it is injective. As it is injective, $dom(f)$ is finite. As $f$ is a total recursive function, it halts in finite time for all inputs in its domain. Therefore, collecting all $f(n)$ for every $n \in dom(f)$ halts in finite time. Checking membership of a finite set halts in finite time. If $a$ is in this set, $a \in A$, otherwise $a \not\in A$.\\
+
+Secondly, we'll assume that $im(f)$ is infinite. For every $n \in dom(f)$, we compute $f(n)$ (in finite time). If $f(n) = a$, we halt, and confirm that $a \in A$. If $f(n) > a$, we halt, and confirm that $a \not\in A$. As $f$ is increasing, we can assume that some successive $n$ will never produce something that is equal to $a$ - e.g. we are allowed to halt when $f(n) > a$. As $a \in A$ describes some finite point in the ordered $\omega$, checking that $a \in A$ will halt in finite time.
+
+
+\subsection*{Problem 4}
+
+Given:
+
+\begin{itemize}
+    \item for $x \in M$, $x \text{ is regular} \Leftrightarrow x \in R^{\mathcal{M}}$
+    \item for $x \in N$, $x \text{ is perfect} \Leftrightarrow x \in P^{\mathcal{N}}$
+    \item Every derivation in $M$ is regular
+    \item Every derivation in $N$ is perfect
+\end{itemize}
+
+We'll assume for both $\mathcal{M}$ and $\mathcal{N}$, that for each constant symbol $a$, $a^{\mathcal{M}} = a$ and $a^{\mathcal{N}} = a$
+
+We can thus conclude that $M = R^\mathcal{M}$ and $N = P^\mathcal{N}$.
+
+% TODO
+% Given that as $\mathcal{N} \subseteq \mathcal{M}$, then $N \subseteq M$.
+
+We can say that $\mathcal{M} \models \forall x Rx$ and $\mathcal{N} \models \forall x Px$.
+
+\begin{enumerate}
+
+    \item $\mathcal{N}$ has a non-empty quantifiable domain, $N$. If $\mathcal{N} \models \forall x Px$, then $\mathcal{N} \models \exists x Px$. Therefore, $\mathcal{N} \models \exists x Px$.
+
+    \item Fix $\mathcal{M^{+}}$ such that there is some new $m \in $$\LANGUAGE(C)$, such that $m^\mathcal{M^{+}} = m$, where $m \not \in P^\mathcal{M^{+}}$. $\mathcal{M^{+}}$ is a valid substitute for $\MODEL$, as it can be constructed using the rules specified prior.\\
+
+        Thus, $\MODEL \not \models \forall x P x$.
+
+    \item Note that $\forall x Rx$ is a $\Pi_1$ sentence (a $\forall$-sentence). By \textsc{Theorem 139(2)}\footnote{Page 85 of course notes}, if $\varphi$ is $\Pi_1$, and $N \subseteq M$, and $\mathcal{M} \models \varphi$, then $\mathcal{N} \models \varphi$. As specified prior $\mathcal{M} \models \forall x Rx$. Therefore $\mathcal{N} \models \forall x Rx$.
+
+    \item $\mathcal{N}$ has a non-empty quantifiable domain, $N$. If $\SUBMODEL \models \forall x Px$, then $\mathcal{N} \models \exists x Px$. For $N \subseteq M$ to be true, if $m \in P^{\SUBMODEL}$, then $m \in P^{\MODEL}$. Therefore $m \in P^{\MODEL}$. Therefore $\MODEL \models \exists x Px$. 
+
+\end{enumerate}
+
+
+
+
+
+
+
+
 
 \subsection*{Problem 6}
 
