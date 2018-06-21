@@ -5,6 +5,9 @@
 \usepackage{bussproofs}
 \usepackage{forest}
 
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
 \newtheorem{lemma}{Lemma}
 \newtheorem{theorem}{Theorem}
 \setcounter{theorem}{117}
@@ -38,10 +41,18 @@
 
 Let $\beta = \SET{ \varphi \mid \varphi \in \Gamma \wedge \varphi \in \Delta }$.
 
-Say there's some $\varphi$ such that $\beta \models \varphi$ but $\varphi \not\in \beta$. If $\varphi \not\in \beta$, then $\varphi \not\in \Gamma$ and $\varphi \not\in \Delta$.
+Say there's some $\varphi$ such that $\beta \models \varphi$ but $\varphi \not\in \beta$. If $\varphi \not\in \beta$, then $\varphi \not\in \Gamma$ and $\varphi \not\in \Delta$.\\
 
-    \textsc{Abortative} I  looked for a counter-example $\varphi$ that could both be true in two seperate sets, but when stripped of its environment (all the $\psi$s in which $\psi \in \Gamma$ but $\psi \not\in \Delta$, and vice-versa) allowed a derivation to something that was not in $\Gamma$ and $\Delta$. I found this very difficult.
+    \textsc{Abortive} I looked for a counter-example $\varphi$ that could both be true in two seperate sets, but when stripped of its environment (all the $\psi$s in which $\psi \in \Gamma$ but $\psi \not\in \Delta$, and vice-versa) allowed a derivation to something that was not in $\Gamma$ and $\Delta$. I found this very difficult.\\
 
+    \textsc{Abortive} We'll try reductio ad absurdum. 
+
+    Assume $\beta$ is not a theory. 
+    
+    $\varphi \not\in \beta$, and $\varphi \not\in \Gamma$. If $\varphi \not \in \Gamma$, then $\Gamma \models \neg \varphi$, which unless $\Gamma \models \bot$, $\Gamma$ never $\models \varphi$ to begin with. This sort-of-not-really contradiction feels really flimsy. It feels more a proof of construction of what theories are, than anything about $\beta$. Nor does it say anything about the construction of $\beta$, critically the fact that $\varphi \in \Gamma \wedge \varphi \in \Delta$.
+
+
+    \textsc{Abortive}
 
     \item Let $\Xi$ be $\SET{\varphi}$ such that for any $\psi$ not equal to $\varphi$, $\varphi \not\vdash \psi$. In other words, $\varphi$ only derives itself.
 
@@ -57,10 +68,34 @@ Say there's some $\varphi$ such that $\beta \models \varphi$ but $\varphi \not\i
 
 \subsection*{Problem 2}
 
+    De Morgan's Law 1
+
     \begin{prooftree}
-        \AxiomC{$(P \rightarrow Q) \rightarrow P$}
+                    \AxiomC{$\PV^{(1)}$}
+                    \UnaryInfC{$\PV \vee \QV$}
+                    \AxiomC{$\neg(\PV \vee \QV)$}
+                \BinaryInfC{$\bot$}
+                \RightLabel{\scriptsize(1) $(\neg I)$}
+            \UnaryInfC{$\neg \PV$}
+                    \AxiomC{$\QV^{(2)}$}
+                    \UnaryInfC{$\PV \vee \QV$}
+                    \AxiomC{$\neg(\PV \vee \QV)$}
+                \BinaryInfC{$\bot$}
+                \RightLabel{\scriptsize(2) $(\neg I)$}
+            \UnaryInfC{$\neg \QV$}
+        \BinaryInfC{$\neg \PV \wedge \neg \QV$}
     \end{prooftree}
 
+
+    \[(P \rightarrow Q) \rightarrow P \vdash P\]
+
+    I spent an entire day on this. The best I could do was a derivation of $Q \rightarrow P$ from the premise. I could complete the proof if I could get a proof of $Q$ from the premise with all assumptions discharged, but, try as I might, I couldn't.
+
+    Often I'd want to create $P \rightarrow Q$s, but I was unable to because I would have to assume the conclusion.
+
+    All the proofs I was doing ``ran out of steam'' very quickly. I'd rack up a lot of unjettisoned assumptions, and in order to jetisson them I'd have to assume 1 or more new assumptions. This led me to believe that I had to be using $(\vee-E)$, so this didn't get out of hand. Often I find it difficult to prove the $\varphi \vee \psi$ part of that rule.
+
+    \includegraphics[width=8cm]{qimpliesp}
 
 \subsection*{Problem 3}
 
@@ -105,25 +140,19 @@ We can say that $\mathcal{M} \models \forall x Rx$ and $\mathcal{N} \models \for
 
     \item $\mathcal{N}$ has a non-empty quantifiable domain, $N$. If $\mathcal{N} \models \forall x Px$, then $\mathcal{N} \models \exists x Px$. Therefore, $\mathcal{N} \models \exists x Px$.
 
-    \item Fix $\mathcal{M^{+}}$ such that there is some new $m \in $$\LANGUAGE(C)$, such that $m^\mathcal{M^{+}} = m$, where $m \not \in P^\mathcal{M^{+}}$. $\mathcal{M^{+}}$ is a valid substitute for $\MODEL$, as it can be constructed using the rules specified prior.\\
+    \item Fix $\mathcal{M^{+}}$ such that there is some $m \in $$\LANGUAGE(C)$, such that $m^\mathcal{M^{+}} = m$, where $m \not \in P^\mathcal{M^{+}}$. $\mathcal{M^{+}}$ is a valid substitute for $\MODEL$, as it can be constructed using the rules specified prior.
 
         Thus, $\MODEL \not \models \forall x P x$.
 
-    \item Note that $\forall x Rx$ is a $\Pi_1$ sentence (a $\forall$-sentence). By \textsc{Theorem 139(2)}\footnote{Page 85 of course notes}, if $\varphi$ is $\Pi_1$, and $N \subseteq M$, and $\mathcal{M} \models \varphi$, then $\mathcal{N} \models \varphi$. As specified prior $\mathcal{M} \models \forall x Rx$. Therefore $\mathcal{N} \models \forall x Rx$.
+    \item Note that $\forall x Rx$ is a $\Pi_1$ sentence (a $\forall$-sentence). By \textsc{Theorem 139(2)}\footnote{Page 85 of course notes}, if $\varphi$ is $\Pi_1$, and $\SUBMODEL \subseteq \MODEL$, and $\mathcal{M} \models \varphi$, then $\mathcal{N} \models \varphi$. As specified prior $\mathcal{M} \models \forall x Rx$. Therefore $\mathcal{N} \models \forall x Rx$.
 
     \item $\mathcal{N}$ has a non-empty quantifiable domain, $N$. If $\SUBMODEL \models \forall x Px$, then $\mathcal{N} \models \exists x Px$. For $N \subseteq M$ to be true, if $m \in P^{\SUBMODEL}$, then $m \in P^{\MODEL}$. Therefore $m \in P^{\MODEL}$. Therefore $\MODEL \models \exists x Px$. 
 
 \end{enumerate}
 
+\section*{Part B}
 
-
-
-
-
-
-
-
-\subsection*{Problem 6}
+\subsection*{Problem 5}
 
 \begin{enumerate}
     \item 
@@ -165,9 +194,7 @@ Let $\MODEL$ be a model with domain $M = \SET{}$.
                 ]
             ]
             [$\neg\forall x \varphi(x) (\neg \forall)$
-                [$E!a ~ \varphi(a)$
-                    [where $a$ is new]
-                ]
+                [$\exists x (\neg \varphi)(x) $]
             ]
         ]
     \end{forest}
@@ -180,8 +207,8 @@ Let $\MODEL$ be a model with domain $M = \SET{}$.
                 ]
             ]
             [$\neg\exists x \varphi(x) (\neg \exists)$
-                [???]
-            ]
+                [$\forall x (\neg \varphi)(x) $]
+           ]
         ]
     \end{forest}
 
