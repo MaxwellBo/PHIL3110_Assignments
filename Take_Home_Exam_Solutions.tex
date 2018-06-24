@@ -41,18 +41,33 @@
 
 Let $\beta = \SET{ \varphi \mid \varphi \in \Gamma \wedge \varphi \in \Delta }$.
 
-Say there's some $\varphi$ such that $\beta \models \varphi$ but $\varphi \not\in \beta$. If $\varphi \not\in \beta$, then $\varphi \not\in \Gamma$ and $\varphi \not\in \Delta$.\\
+    \textsc{Abortive} Say there's some $\varphi$ such that $\beta \models \varphi$ but $\varphi \not\in \beta$. If $\varphi \not\in \beta$, then $\varphi \not\in \Gamma$ and $\varphi \not\in \Delta$. This didn't really go anywhere.\\
 
     \textsc{Abortive} I looked for a counter-example $\varphi$ that could both be true in two seperate sets, but when stripped of its environment (all the $\psi$s in which $\psi \in \Gamma$ but $\psi \not\in \Delta$, and vice-versa) allowed a derivation to something that was not in $\Gamma$ and $\Delta$. I found this very difficult.\\
 
-    \textsc{Abortive} We'll try reductio ad absurdum. 
+    \textsc{Abortive} I tried reductio ad absurdum. 
 
     Assume $\beta$ is not a theory. 
     
     $\varphi \not\in \beta$, and $\varphi \not\in \Gamma$. If $\varphi \not \in \Gamma$, then $\Gamma \models \neg \varphi$, which unless $\Gamma \models \bot$, $\Gamma$ never $\models \varphi$ to begin with. This sort-of-not-really contradiction feels really flimsy. It feels more a proof of construction of what theories are, than anything about $\beta$. Nor does it say anything about the construction of $\beta$, critically the fact that $\varphi \in \Gamma \wedge \varphi \in \Delta$.
 
+    \textsc{Abortive} I thought about a stage-based definition of $\beta$, and trying to prove that it's always a theory at every stage of construction. I figured that was more pain that it was worth, considering that there'd be something like 9 seperate stages, when $\varphi$ is in $\Gamma$, $\varphi$ in $\Delta$, and both, for $0$, $n$ and $n + 1$.
 
-    \textsc{Abortive}
+    \textsc{Final answer}
+
+    I settled on the following.
+
+    \begin{align*}
+        \varphi \in \beta & \Leftrightarrow \varphi \in \Gamma \text{ and } \varphi \in \Delta\\
+        & \Leftrightarrow \Gamma \models \varphi \text{ and } \Delta \models \varphi\\
+        & \Leftrightarrow \Gamma, \Delta \models \varphi\\
+        & \Leftrightarrow \Gamma \cap \Delta \models \varphi\\
+        & \Leftrightarrow \beta \models \varphi\\
+    \end{align*}
+
+    The first $\Leftrightarrow$ is by the defintion of $\beta$; the second by the fact that $\Gamma$ and $\Delta$ are both theories; and the fifth by the defintion of $\beta$.
+
+    The critical leap is $\Gamma, \Delta \models \varphi \Leftrightarrow  \Gamma \cap \Delta \models \varphi$.
 
     \item Let $\Xi$ be $\SET{\varphi}$ such that for any $\psi$ not equal to $\varphi$, $\varphi \not\vdash \psi$. In other words, $\varphi$ only derives itself.
 
@@ -331,7 +346,7 @@ Suppose $\psi := \chi$. Then
         Then we have
 
     \begin{align*}
-        \exists x \chi (x)\in \Delta & \Leftrightarrow \text{there is some } a \in M^{\Delta} \text{ such that } \chi(a) \in \Delta \text{ and } \exists y(y = a) \in \Delta\\
+        \exists x \chi (x)\in \Delta & \Rightarrow \text{there is some } a \in M^{\Delta} \text{ such that } \chi(a) \in \Delta \text{ and } \exists y(y = a) \in \Delta\\
         & \Leftrightarrow \text{there is some } a \in M^{\Delta} \text{ such that } \MODEL^{\Delta} \models \chi (a) \text{ and } \MODEL^{\Delta} \models \exists y(y = a)\\
         & \Leftrightarrow \MODEL^{\Delta} \models \exists x \chi (x)
     \end{align*}
